@@ -1,3 +1,5 @@
+intro to wasm tutorial from https://rustwasm.github.io/docs/book/introduction.html
+
 ```
 wasm-pack build
 npm init wasm-app www
