@@ -5,7 +5,6 @@ const CELL_SIZE = 10; // px
 const GRID_COLOR = "#CCCCCC";
 const DEAD_COLOR = "#FFFFFF";
 const ALIVE_COLOR = "#000000";
-const FPS = 30;
 
 const universe = Universe.new();
 const width = universe.width();
@@ -65,8 +64,13 @@ function drawCells() {
 }
 
 function renderLoop() {
+  const FPS = document.getElementById("fps").valueAsNumber;
+
   canvas.textContent = universe.render();
-  universe.tick();
+
+  if (FPS !== 0) {
+    universe.tick();
+  }
 
   drawGrid();
   drawCells();
