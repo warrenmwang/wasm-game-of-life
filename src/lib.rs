@@ -63,12 +63,59 @@ impl Universe {
         self.cells = next;
     }
 
-    pub fn new(init_state: i32) -> Universe {
-        let width = 64;
-        let height = 64;
+    pub fn new(init_state: u32) -> Universe {
+        let width: u32 = 64;
+        let height: u32 = 64;
+
+        let helper = |row: u32, col: u32| (row * width + col) as usize;
 
         let cells = match init_state {
-            0 => (0..width * height)
+            // gosper's glider gun
+            0 => {
+                let mut _cells: Vec<Cell> = (0..width * height).map(|_| Cell::Dead).collect();
+                [
+                    (6, 1),
+                    (6, 2),
+                    (7, 1),
+                    (7, 2),
+                    (6, 11),
+                    (7, 11),
+                    (8, 11),
+                    (5, 12),
+                    (9, 12),
+                    (4, 13),
+                    (10, 13),
+                    (4, 14),
+                    (10, 14),
+                    (7, 15),
+                    (5, 16),
+                    (9, 16),
+                    (6, 17),
+                    (7, 17),
+                    (8, 17),
+                    (7, 18),
+                    (4, 21),
+                    (5, 21),
+                    (6, 21),
+                    (4, 22),
+                    (5, 22),
+                    (6, 22),
+                    (3, 23),
+                    (7, 23),
+                    (2, 25),
+                    (3, 25),
+                    (7, 25),
+                    (8, 25),
+                    (4, 35),
+                    (4, 36),
+                    (5, 35),
+                    (5, 36),
+                ]
+                .map(|(row, col)| _cells[helper(row, col)] = Cell::Alive);
+                _cells
+            }
+            // random
+            1 => (0..width * height)
                 .map(|_| {
                     if js_sys::Math::random() < 0.5 {
                         Cell::Alive
@@ -77,6 +124,7 @@ impl Universe {
                     }
                 })
                 .collect(),
+            // default preset 1 config from tutorial
             _ => (0..width * height)
                 .map(|i| {
                     if i % 2 == 0 || i % 7 == 0 {
