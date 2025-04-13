@@ -4,6 +4,9 @@
     <meta charset="utf-8" />
     <title>Hello wasm-pack!</title>
     <style>
+      .flex {
+        display: flex;
+      }
       body {
         position: absolute;
         top: 0;
@@ -22,10 +25,12 @@
       >This page contains webassembly and javascript content, please enable
       javascript in your browser.</noscript
     >
-    <div>
-      <label>FPS: </label>
-      <span id="fps-value">30</span>
+    <div class="flex">
       <div>
+        <div>
+          <label>FPS: </label>
+          <span id="fps-value">30</span>
+        </div>
         <input
           id="fps"
           type="range"
@@ -34,6 +39,15 @@
           value="30"
           oninput="document.getElementById('fps-value').textContent = this.value;"
         />
+      </div>
+      <div>
+        <div>
+          <label for="preset">Initial State Structure </label>
+        </div>
+        <select name="preset" id="preset">
+          <option value="0" selected>Random</option>
+          <option value="1">Preset 1</option>
+        </select>
       </div>
     </div>
     <br />

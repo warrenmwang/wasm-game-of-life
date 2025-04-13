@@ -27,7 +27,7 @@ pub struct Universe {
 
 impl Default for Universe {
     fn default() -> Self {
-        Universe::new()
+        Universe::new(0)
     }
 }
 
@@ -63,19 +63,30 @@ impl Universe {
         self.cells = next;
     }
 
-    pub fn new() -> Universe {
+    pub fn new(init_state: i32) -> Universe {
         let width = 64;
         let height = 64;
 
-        let cells = (0..width * height)
-            .map(|i| {
-                if i % 2 == 0 || i % 7 == 0 {
-                    Cell::Alive
-                } else {
-                    Cell::Dead
-                }
-            })
-            .collect();
+        let cells = match init_state {
+            0 => (0..width * height)
+                .map(|_| {
+                    if js_sys::Math::random() < 0.5 {
+                        Cell::Alive
+                    } else {
+                        Cell::Dead
+                    }
+                })
+                .collect(),
+            _ => (0..width * height)
+                .map(|i| {
+                    if i % 2 == 0 || i % 7 == 0 {
+                        Cell::Alive
+                    } else {
+                        Cell::Dead
+                    }
+                })
+                .collect(),
+        };
 
         Universe {
             width,

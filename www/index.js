@@ -6,7 +6,7 @@ const GRID_COLOR = "#CCCCCC";
 const DEAD_COLOR = "#FFFFFF";
 const ALIVE_COLOR = "#000000";
 
-const universe = Universe.new();
+let universe = Universe.new();
 const width = universe.width();
 const height = universe.height();
 
@@ -81,3 +81,7 @@ function renderLoop() {
 }
 
 requestAnimationFrame(renderLoop);
+
+document.getElementById("preset").addEventListener('change', (e) => {
+  universe = Universe.new(e.target.value);
+})
